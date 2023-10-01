@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Data</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0px;
+        padding: 0px;
+        background-color: #f5f5f5;
+    }
+    h1 {
+        background-color: #007BFF;
+        color: white;
+        padding: 20px;
+        margin: 0;
+    }
+    .profile-section {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px;
+    }
+    p {
+        margin: 10px 0;
+    }
+    strong {
+        font-weight: bold;
+    }
+    .profile-section:nth-child(odd) {
+        background-color: #f0f0f0;
+    }
+    .form-group {
+        margin: 10px;
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        text-decoration: none;
+    }
+</style>
+</head>
+
+<body>
+    <h1>User Data:</h1>
+    <div id="data"></div>
+
+    <div class="form-group">
+        <button type="submit"><a href="/index.html" style="text-decoration: none;">Home</a></button>
+        <button type="submit"><a href="/register.html" style="text-decoration: none;">Register</a></button>
+        <button type="submit"><a href="/update.html" style="text-decoration: none;">Update</a></button>
+    </div>
+
+
+    <script>
+        // Get the current user's ID
+        function getTokenFromLocalStorage() {
+            const token = localStorage.getItem('token');
+
+            const payload = JSON.parse(token);
+            return payload
+        }
+
+        // Get the current user's ID
+        const userId = "6512739775fdaa094b4ce9a6";
+
+        // Fetch data from the server
+        fetch(`/user/${userId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Decrypt sensitive data
+              console.log(data)
+
+                // Display data
+                document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('data').textContent = 'Error fetching user data';
+            });
+
+    </script>
+</body>
+
+</html>

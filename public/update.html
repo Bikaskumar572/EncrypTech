@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Form:</h1>
+    <form id="registrationForm">
+        <input type="text" id="firstName" placeholder="First Name" ><br>
+        <input type="text" id="lastName" placeholder="Last Name" ><br>
+        <input type="text" id="address" placeholder="Address" ><br>
+        <input type="text" id="pincode" placeholder="Pincode" ><br>
+        <input type="email" id="email" placeholder="Email" ><br>
+        <input type="date" id="dob" placeholder="Date of Birth" ><br>
+        <input type="text" id="phoneNumber" placeholder="Phone Number" ><br>
+        <input type="text" id="aadharNo" placeholder="Aadhar Number" ><br>
+        <input type="text" id="panCardNo" placeholder="PAN Card Number" ><br>
+        <input type="text" id="bankName" placeholder="Bank Name" ><br>
+        <input type="text" id="accountNo" placeholder="Account Number" ><br>
+        <input type="text" id="ifscCode" placeholder="IFSC Code" ><br>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <a href="/index.html">Home Page</a>
+    <a href="/userdata.html">User Data Page</a>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                address: document.getElementById('address').value,
+                pincode: document.getElementById('pincode').value,
+                email: document.getElementById('email').value,
+                dob: document.getElementById('dob').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                aadharNo: document.getElementById('aadharNo').value,
+                panCardNo: document.getElementById('panCardNo').value,
+                bankName: document.getElementById('bankName').value,
+                accountNo: document.getElementById('accountNo').value,
+                ifscCode: document.getElementById('ifscCode').value,
+                password: document.getElementById('password').value
+            };
+
+            fetch('/api/user/1', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(() => alert('User updated successfully'))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
